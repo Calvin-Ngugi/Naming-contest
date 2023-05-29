@@ -1,5 +1,4 @@
-import express from "express";
-import "./config";
+import express from "express";1
 import config from "./config";
 
 const server = express();
