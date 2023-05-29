@@ -1,16 +1,5 @@
 import { createRoot } from "react-dom/client"
-
-const Header = () => {
-    return <div className="header">Naming Contests</div>
-};
-
-const App = () => {
-  return (
-    <div className="container">
-        <Header/>
-    </div>
-  );
-};
+import App from "./components/app";
 
 const container = document.getElementById("app")
 const root = createRoot(container)
