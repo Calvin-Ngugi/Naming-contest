@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FetchContest } from "../api-client";
+import { AddNewName, FetchContest } from "../api-client";
 import Header from "./header";
 
 const Contest = ({ initialContest, onContestListClick }) => {
@@ -16,7 +16,17 @@ const Contest = ({ initialContest, onContestListClick }) => {
   const handleClick = (e) => {
     e.preventDefault();
     onContestListClick();
-  }
+  };
+
+  const handleNewNameSubmit = async (e) => {
+    e.preventDefault();
+    const newName = e.target.newName;
+    const res = await AddNewName({
+      contestId: contest.id,
+      newNameValue: newName.value,
+    });
+    console.log(res);
+  };
 
   return (
     <>
@@ -25,7 +35,36 @@ const Contest = ({ initialContest, onContestListClick }) => {
         <div className="title">Contest Description</div>
         <div className="description">{contest.description}</div>
 
-        <a href="/" className="link" onClick={handleClick}>Contest List</a>
+        <div className="title">Proposed Names</div>
+        <div className="body">
+          {contest.names?.length > 0 ? (
+            <div className="list">
+              {contest.names.map((proposedName) => (
+                <div className="item" key={proposedName.id}>
+                  {proposedName.name}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>No proposed names yet</div>
+          )}
+        </div>
+
+        <div className="title">Propose a new name</div>
+        <div className="body">
+          <form onSubmit={handleNewNameSubmit}>
+            <input
+              type="text"
+              name="newName"
+              placeholder="Enter Name"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <a href="/" className="link" onClick={handleClick}>
+          Contest List
+        </a>
       </div>
     </>
   );
