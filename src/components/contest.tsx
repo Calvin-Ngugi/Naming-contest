@@ -21,11 +21,11 @@ const Contest = ({ initialContest, onContestListClick }) => {
   const handleNewNameSubmit = async (e) => {
     e.preventDefault();
     const newName = e.target.newName;
-    const res = await AddNewName({
+    const updatedContest = await AddNewName({
       contestId: contest.id,
       newNameValue: newName.value,
     });
-    console.log(res);
+    setContest(updatedContest);
   };
 
   return (
